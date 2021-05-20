@@ -1,0 +1,75 @@
+﻿@model WebApplication1.Models.tbl_Employee
+
+@{
+    Layout = null;
+    string Editurl = Url.Action("Check", "Edit", new { Id = Model.Id });
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            document.getElementById("Password").value = "";
+        };
+        function PasswordValidation() {
+            if (document.getElementById("Password").value == document.getElementById("CurrentPassword").value) {
+                var url = 'https://localhost:44397/Employee/Edit';
+                var Uid = document.getElementById("Id").value;
+                location.href = url + '/' + Uid;
+            }
+            else {
+                alert("Your password is not Correct!")
+            }
+        }
+    </script>
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    @using (Html.BeginForm("PasswordCheck", "Employee"))
+    {
+        @Html.ValidationSummary(true, "", new { id = "Id", @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        @Html.TextBoxFor(m => m.Password, new { id = "CurrentPassword", style = "display: none;" })
+    <div style="margin:3%">
+        <h4>Password Verification</h4>
+
+        <div class="control-group">
+            <label class="control-label">Please Enter Your Password to Continue</label>
+            <div class="controls">
+                    
+                @Html.EditorFor(Model => Model.Password, new { id = "Password", htmlattributes = new { @class = "input-xlarge" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "help-block" })
+            </div>
+        </div>
+
+
+        <div class="control-group">
+            <div class="controls">
+                <input type="button" value="Verify Password" onclick="PasswordValidation()" />
+
+                @* @Html.ActionLink("Check", "Edit", new { Id = Model.Id })*@
+            </div>
+        </div>
+    </div>
+
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>
