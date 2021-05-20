@@ -1,0 +1,105 @@
+﻿@model WebApplication1.Models.tbl_Employee
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="~/Scripts/jquery-3.6.0.js"></script>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+
+</head>
+
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    
+    
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        
+    <div class="form-horizontal">
+        <div id="legend">
+            <legend class="">Register</legend>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "help-block" })
+        <div class="control-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label " })
+            <div class="controls">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input-xlarge" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "help-block" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label " })
+            <div class="controls">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input-xlarge" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "help-block" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label " })
+            <div class="controls">
+                @Html.TextBoxFor(model => model.Email, new { htmlAttributes = new { @class = "input-xlarge" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "help-block" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                Male:   @Html.RadioButton("Gender", "Male")
+                Female: @Html.RadioButton("Gender", "Female")
+                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "help-block" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label " })
+            <div class="controls">
+                @Html.EditorFor(model => model.DOB , "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "DD/MM/YYYY", maxlength = "100" })
+                @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "help-block" })
+            </div>
+        </div>    
+        <div class="control-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label " })
+            <div class="controls">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "input-xlarge" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "help-block" })
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label " })
+            <div class="controls">
+                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "input-xlarge" } })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "help-block" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+    }
+    
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>
